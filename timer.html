@@ -1,0 +1,389 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./fontawesome-free-5.15.4-web/css/all.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+      .countdown-input {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .countdown-title {
+        margin: 20px 0;
+        text-align: center;
+        font-weight: 500;
+        color: black;
+      }
+
+      .countdown-input-group {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        width: 30%;
+      }
+      .countdown-timer {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
+      .countdown-input label {
+        margin-right: 10px;
+      }
+
+      .countdown-input-box {
+        width: 100%;
+        padding: 0.25rem 0;
+        font-size: 2rem;
+        text-align: center;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+
+      .countdown-input-box:focus {
+        outline: none;
+      }
+      .countdown-btn {
+        width: 80%;
+        font-size: 1rem;
+        padding: 0.8rem;
+        border: none;
+        color: white;
+        background-color: black;
+        border-radius: 1.5rem;
+      }
+
+      .countdown-display {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        font-size: 3rem;
+        width: 100%;
+      }
+
+      .countdown-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .countdown-label {
+        font-size: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 5px;
+      }
+
+      .pulse {
+        animation: pulse 1s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .container {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+
+    <title>Utilize - Timer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <button onclick="showNavUtil()" class="btn-show">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div id="nav-placeholder"></div>
+    </div>
+    <div class="container">
+      <h3 class="countdown-title">Countdown timer</h3>
+      <div class="countdown-timer">
+        <div class="countdown-input">
+          <div class="countdown-input-group">
+            <label for="hours">Hours</label>
+            <input
+              type="number"
+              id="hours"
+              value="0"
+              min="0"
+              max="23"
+              pattern="[0-9]+"
+              class="countdown-input-box"
+            />
+          </div>
+          <div class="countdown-input-group">
+            <label for="minutes">Minutes</label>
+            <input
+              type="number"
+              id="minutes"
+              value="0"
+              min="0"
+              max="59"
+              pattern="[0-9]+"
+              class="countdown-input-box"
+            />
+          </div>
+          <div class="countdown-input-group">
+            <label for="seconds">Seconds</label>
+            <input
+              type="number"
+              id="seconds"
+              value="0"
+              min="0"
+              pattern="[0-9]+"
+              max="59"
+              class="countdown-input-box"
+            />
+          </div>
+        </div>
+        <button class="countdown-btn" id="start">Start</button>
+        <button
+          id="pause"
+          style="
+            display: none;
+            border: none;
+            padding: 15px 15px;
+            border-radius: 30px;
+            background-color: black;
+            color: white;
+          "
+        >
+          <i class="fas fa-pause"></i>
+        </button>
+        <button
+          id="resume"
+          style="
+            display: none;
+            border: none;
+            padding: 15px 15px;
+            border-radius: 30px;
+            background-color: black;
+            color: white;
+          "
+        >
+        <i class="fas fa-play"></i>
+        </button>
+        <div class="countdown-display">
+          <div class="countdown-item">
+            <span id="hours-display">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes-display">00</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds-display">00</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var initialHours, initialMinutes, initialSeconds;
+      var hours, minutes, seconds;
+      var timer;
+      var running = false;
+
+      $("#hours").on("input", function () {
+        let hours = parseInt($(this).val());
+        if (isNaN(hours)) {
+          hours = 0;
+        }
+        console.log(hours);
+        $("#hours").val(hours > 23 ? 00 : hours);
+        $("#hours-display").text(
+          hours < 10 ? "0" + hours : hours > 23 ? 00 : hours
+        );
+      });
+
+      $("#minutes").on("input", function () {
+        let minutes = parseInt($(this).val());
+        if (isNaN(minutes)) {
+          minutes = 0;
+        }
+        $("#minutes").val((minutes = 0 || minutes > 59 ? 00 : minutes));
+        $("#minutes-display").text(
+          minutes < 10 ? "0" + minutes : minutes > 59 ? 00 : minutes
+        );
+      });
+
+      $("#seconds").on("input", function () {
+        let seconds = parseInt($(this).val());
+        if (isNaN(seconds)) {
+          seconds = 0;
+        }
+        $("#seconds").val((seconds = 0 || seconds > 59 ? 00 : seconds));
+        $("#seconds-display").text(
+          seconds < 10 ? "0" + seconds : seconds > 59 ? 00 : seconds
+        );
+      });
+
+      $(document).ready(function () {
+        var hoursInput = $("#hours");
+        var minutesInput = $("#minutes");
+        var secondsInput = $("#seconds");
+        var hoursDisplay = $("#hours-display");
+        var minutesDisplay = $("#minutes-display");
+        var secondsDisplay = $("#seconds-display");
+        var startButton = $("#start");
+        var pauseButton = $("#pause");
+        var resumeButton = $("#resume");
+        var paused = false;
+
+        startButton.click(function () {
+          if (!running && !paused) {
+            initialHours = parseInt(hoursInput.val());
+            initialMinutes = parseInt(minutesInput.val());
+            initialSeconds = parseInt(secondsInput.val());
+
+            if (initialHours + initialMinutes + initialSeconds == 0) {
+              return;
+            }
+
+            hours = initialHours;
+            minutes = initialMinutes;
+            seconds = initialSeconds;
+
+            timer = setInterval(function () {
+              if (seconds == 0) {
+                if (minutes == 0) {
+                  if (hours == 0) {
+                    clearInterval(timer);
+                    running = false;
+                    startButton.text("Start");
+                    return;
+                  } else {
+                    hours--;
+                    minutes = 59;
+                    seconds = 59;
+                  }
+                } else {
+                  minutes--;
+                  seconds = 59;
+                }
+              } else {
+                seconds--;
+              }
+
+              hoursDisplay.text(hours < 10 ? "0" + hours : hours);
+              minutesDisplay.text(minutes < 10 ? "0" + minutes : minutes);
+              secondsDisplay.text(seconds < 10 ? "0" + seconds : seconds);
+
+              $("#hours-display").addClass("pulse");
+              $("#minutes-display").addClass("pulse");
+              $("#seconds-display").addClass("pulse");
+            }, 1000);
+            running = true;
+            startButton.text("Stop");
+
+            pauseButton.show();
+            resumeButton.hide();
+          } else if (paused || running) {
+            clearInterval(timer);
+            running = false;
+            paused = false;
+            startButton.text("Start");
+            $("#hours-display").removeClass("pulse");
+            $("#minutes-display").removeClass("pulse");
+            $("#seconds-display").removeClass("pulse");
+
+            $("#hours-display").text("00");
+            $("#minutes-display").text("00");
+            $("#seconds-display").text("00");
+
+            $("#pause").hide();
+
+            $("#resume").hide();
+          }
+        });
+
+        pauseButton.click(function () {
+          clearInterval(timer);
+
+          running = false;
+          paused = true;
+          pauseButton.hide();
+          resumeButton.show();
+        });
+
+        resumeButton.click(function () {
+          if (!running) {
+            timer = setInterval(function () {
+              if (seconds == 0) {
+                if (minutes == 0) {
+                  if (hours == 0) {
+                    clearInterval(timer);
+                    running = false;
+                    paused = false;
+                    startButton.text("Start");
+                    return;
+                  } else {
+                    hours--;
+                    minutes = 59;
+                    seconds = 59;
+                  }
+                } else {
+                  minutes--;
+                  seconds = 59;
+                }
+              } else {
+                seconds--;
+              }
+
+              hoursDisplay.text(hours < 10 ? "0" + hours : hours);
+              minutesDisplay.text(minutes < 10 ? "0" + minutes : minutes);
+              secondsDisplay.text(seconds < 10 ? "0" + seconds : seconds);
+
+              $("#hours-display").addClass("pulse");
+              $("#minutes-display").addClass("pulse");
+              $("#seconds-display").addClass("pulse");
+            }, 1000);
+
+            running = true;
+            pauseButton.show();
+            resumeButton.hide();
+          }
+        });
+      });
+    </script>
+
+    <div id="copyright-div"></div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#copyright-div").load("statement.html");
+      });
+    </script>
+  </body>
+</html>

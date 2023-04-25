@@ -1,0 +1,112 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="side-nav">
+    <button onclick="showNavUtil()"><i class="fas fa-times"></i></button>
+    <ul class="utility-list">
+      <li class="nav-list-item site-name-class">
+        <a href="">
+          <a href="#">
+            <i class="fas fa-lst"></i>
+          </a>
+          <h3  class="site-name"
+            style="
+              font-size: 2rem;
+              font-family: 'Style Script', cursive;
+              width: 100%;
+            "
+          >
+            Utilize
+          </h3>
+        </a>
+      </li>
+      <li class="nav-list-item">
+        <a href="note.html">
+          <i class="fas fa-journal-whills"></i>
+        </a>
+        <a href="note.html">
+          <p>Notepad</p>
+        </a>
+      </li>
+      <li class="nav-list-item">
+        <a href="todolist.html">
+          <i class="fas fa-list"></i>
+        </a>
+        <a href="todolist.html">
+          <p>To-do List</p>
+        </a>
+      </li>
+   
+      <li class="nav-list-item">
+        <a href="calculator.html">
+          <i class="fas fa-divide"></i>
+        </a>
+        <a href="calculator.html">
+          <p>Calculator</p>
+        </a>
+      </li>
+      <li class="nav-list-item">
+        <a href="passgen.html"> <i class="fas fa-key"></i></a>
+        <a href="passgen.html">
+          <p>Password Generator</p>
+        </a>
+      </li>
+
+      <li class="nav-list-item">
+        <a href="currencyconv.html"> <i class="fas fa-money-bill"></i></a>
+        <a href="currencyconv.html">
+          <p>Currency Converter</p>
+        </a>
+      </li>
+
+      <li class="nav-list-item">
+        <a href="timer.html"> <i class="fas fa-clock"></i> </a>
+        <a href="timer.html">
+          <p>Clock Timer</p>
+        </a>
+      </li>
+    </ul>
+    <!-- <ul class="utility-list">
+      <li>
+        <a href="reset.html">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
+        <a href="reset.html">
+          <p>Reset</p>
+        </a>
+      </li>
+    </ul> -->
+  </div>
+</body>
+
+<script type="text/javascript">
+  function showNavUtil() {
+    $(".side-nav").toggleClass("responsive-nav");
+    $(".header .btn-show").toggleClass("invisible");
+  }
+
+  $(document).ready(function () {
+    // get the initial width of the viewport
+    var width = $(window).width();
+
+    // check the width on window resize
+    $(window).resize(function () {
+      // get the new width of the viewport
+      var newWidth = $(window).width();
+
+      // if the width has increased beyond the mobile breakpoint, remove the responsive-nav class
+      if (newWidth >= 768 && width < 768) {
+        $(".responsive-nav").removeClass("responsive-nav");
+      }
+
+      // update the width variable
+      width = newWidth;
+    });
+  });
+</script>

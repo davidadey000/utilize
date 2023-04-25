@@ -1,0 +1,192 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./fontawesome-free-5.15.4-web/css/all.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+      .container {
+        background-color: white;
+      }
+      .curr-conv-title {
+        margin: 20px 0;
+        text-align: center;
+        font-weight: 500;
+        color: black;
+      }
+
+      .curr-conv-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .curr-conv-amt-label,
+      .curr-conv-from-label,
+      .curr-conv-to-label {
+        font-size: 1rem;
+        margin-bottom: 5px;
+        color: #555;
+      }
+
+      .curr-conv-amt,
+      .curr-conv-from,
+      .curr-conv-to {
+        padding: 8px 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 2px solid #ccc;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .curr-conv-btn {
+        padding: 10px 40px;
+        margin-top: 5px;
+        font-size: 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .curr-conv-result {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        color: #555;
+      }
+    </style>
+    <title>Utilize - Currency Converter</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <button onclick="showNavUtil()" class="btn-show">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div id="nav-placeholder"></div>
+    </div>
+
+    <div class="curr-conv-div container">
+      <h3 class="curr-conv-title">Currency Converter</h3>
+      <form class="curr-conv-form">
+        <label class="curr-conv-amt-label" for="amount">Amount:</label>
+        <input
+          class="curr-conv-amt"
+          type="number"
+          id="amount"
+          name="amount"
+          placeholder="Please enter amount"
+        />
+        <br />
+        <label class="curr-conv-from-label" for="from">From:</label>
+        <select class="curr-conv-from" id="from" name="from">
+          <option value="USD">US Dollar (USD)</option>
+          <option value="NGN">Nigerian Naira (NGN)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="JPY">Japanese Yen (JPY)</option>
+          <option value="GBP">British Pound (GBP)</option>
+          <option value="CAD">Canadian Dollar (CAD)</option>
+          <option value="AUD">Australian Dollar (AUD)</option>
+          <option value="CHF">Swiss Franc (CHF)</option>
+          <option value="CNY">Chinese Yuan (CNY)</option>
+          <option value="HKD">Hong Kong Dollar (HKD)</option>
+          <option value="INR">Indian Rupee (INR)</option>
+          <option value="KRW">South Korean Won (KRW)</option>
+          <option value="MXN">Mexican Peso (MXN)</option>
+          <option value="NZD">New Zealand Dollar (NZD)</option>
+          <option value="SGD">Singapore Dollar (SGD)</option>
+          <option value="ZAR">South African Rand (ZAR)</option>
+          <option value="BRL">Brazilian Real (BRL)</option>
+          <option value="RUB">Russian Ruble (RUB)</option>
+          <option value="TRY">Turkish Lira (TRY)</option>
+          <option value="SEK">Swedish Krona (SEK)</option>
+          <option value="NOK">Norwegian Krone (NOK)</option>
+          <option value="DKK">Danish Krone (DKK)</option>
+          <option value="PLN">Polish Zlolty (PLN)</option>
+        </select>
+        <br />
+        <label class="curr-conv-to-label" for="to">To:</label>
+        <select class="curr-conv-to" id="to" name="to">
+          <option value="USD">US Dollar (USD)</option>
+          <option value="NGN">Nigerian Naira (NGN)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="JPY">Japanese Yen (JPY)</option>
+          <option value="GBP">British Pound (GBP)</option>
+          <option value="CAD">Canadian Dollar (CAD)</option>
+          <option value="AUD">Australian Dollar (AUD)</option>
+          <option value="CAD">Canadian Dollar (CAD)</option>
+          <option value="CHF">Swiss Franc (CHF)</option>
+          <option value="CNY">Chinese Yuan (CNY)</option>
+          <option value="HKD">Hong Kong Dollar (HKD)</option>
+          <option value="INR">Indian Rupee (INR)</option>
+          <option value="KRW">South Korean Won (KRW)</option>
+          <option value="MXN">Mexican Peso (MXN)</option>
+          <option value="NZD">New Zealand Dollar (NZD)</option>
+          <option value="SGD">Singapore Dollar (SGD)</option>
+          <option value="ZAR">South African Rand (ZAR)</option>
+          <option value="BRL">Brazilian Real (BRL)</option>
+          <option value="RUB">Russian Ruble (RUB)</option>
+          <option value="TRY">Turkish Lira (TRY)</option>
+          <option value="SEK">Swedish Krona (SEK)</option>
+          <option value="NOK">Norwegian Krone (NOK)</option>
+          <option value="DKK">Danish Krone (DKK)</option>
+          <option value="PLN">Polish Zloty (PLN)</option>
+        </select>
+        <br />
+        <button class="curr-conv-btn" type="button" id="convert">
+          Convert
+        </button>
+        <div class="curr-conv-result" id="result"></div>
+      </form>
+    </div>
+    <div id="copyright-div"></div>
+
+    <script>
+      $(document).ready(function () {
+        // Set API endpoint and key
+        var endpoint = "https://api.exchangerate-api.com/v4/latest/";
+        var apiKey = "YOUR_API_KEY_HERE";
+
+        // Attach click event handler to the convert button
+        $("#convert").click(function () {
+          // Get the input values
+          var amount = $("#amount").val();
+          var from = $("#from").val();
+          var to = $("#to").val();
+
+          // Send GET request to API endpoint
+          $.ajax({
+            url: endpoint + from,
+            type: "GET",
+            success: function (response) {
+              // Calculate the conversion
+              var rate = response.rates[to];
+              var result = amount * rate;
+
+              // Display the result
+              $("#result").text(
+                amount + " " + from + " = " + result.toFixed(2) + " " + to
+              );
+            },
+            error: function (xhr, status, error) {
+              // Display an error message if the API request fails
+              $("#result").text("Error: " + error);
+            },
+          });
+        });
+
+        $("#nav-placeholder").load("nav.html");
+        $("#copyright-div").load("statement.html");
+      });
+    </script>
+  </body>
+</html>

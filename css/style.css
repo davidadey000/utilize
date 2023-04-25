@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: capitalize;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, #ff0 50%, #333 50%);
+}
+.copyright {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 0.75rem;
+  font-weight: light;
+  color: black;
+  text-transform: none;
+}
+
+/* Navbar */
+.side-nav {
+  width: 80%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 30px 0 30px 15px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  position: absolute;
+  margin-left: -80%;
+  transition: 1s;
+  z-index: 1000;
+}
+
+.utility-list {
+  list-style: none;
+  padding: 0 15px;
+}
+
+.nav-list-item {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-list-item a:nth-of-type(1) {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.utility-list a.active {
+  color: red;
+}
+
+
+.nav-list-item p {
+  line-height: 1.5rem;
+  /* text-decoration: none; */
+}
+
+.responsive-nav {
+  transform: translateX(100%);
+}
+
+.header button {
+  position: absolute;
+
+  top: 2vh;
+  left: 4vw;
+  background: transparent;
+  font-size: 25px;
+  border: none;
+}
+
+.header a {
+  text-decoration: none;
+  color: black;
+}
+
+.invisible {
+  display: none;
+}
+
+.fa-bars {
+  color: white;
+}
+.fa-times {
+  color: black;
+}
+
+.container {
+  width: 330px;
+  /* height: 75%; */
+  height: 450px;
+  background: transparent;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  padding: 2%;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+::-webkit-scrollbar {
+  width: 7.5px; /* adjust the width as needed */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* color of the scrollbar */
+  border-radius: 15px; /* adjust the border radius as needed */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa; /* color of the scrollbar when hovered */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* color of the track */
+}
+
+/* Notepad */
+
+@media screen and (min-width: 768px) {
+  .side-nav {
+    width: 85px;
+    position: fixed;
+    margin-left: 0;
+    padding-top: 1px;
+  }
+
+
+  .header button {
+    display: none;
+  }
+
+  .nav-list-item {
+    margin: 62.5px 0;
+  }
+
+  .nav-list-item p {
+    display: none;
+  }
+  
+
+  .site-name-class {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  
+.copyright {
+  color: white;
+}
+  .side-nav {
+    position: relative;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 0 30px 15px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+
+  .nav-list-item {
+    margin: 30px 0;
+  }
+
+  .nav-list-item p {
+    display: block;
+  }
+  
+  .site-name-class {
+    display: flex;
+  }
+}

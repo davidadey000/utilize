@@ -1,0 +1,261 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./fontawesome-free-5.15.4-web/css/all.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <title>Utilize - Password Generator</title>
+    <style>
+      .container {
+        background-color: white;
+      }
+
+      .pass-length-label,
+      .pass-length {
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      .pass-length {
+        margin-bottom: 10px;
+        font-size: 16px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        max-width: 80px;
+        box-sizing: border-box;
+      }
+
+      .pass-lower-check,
+      .pass-lower-lbl,
+      .pass-upper-check,
+      .pass-upper-lbl,
+      .pass-number-check,
+      .pass-number-lbl,
+      .pass-symbol-check,
+      .pass-symbol-lbl {
+        margin-bottom: 7.5px;
+        font-size: 16px;
+      }
+
+      .pass-lower-check,
+      .pass-upper-check,
+      .pass-number-check,
+      .pass-symbol-check {
+        margin-right: 5px;
+      }
+
+      .pass-btns {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .pass-btns button {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      .pass-gen-btn {
+        background-color: #4caf50;
+        color: #fff;
+      }
+
+      .pass-copy-btn {
+        background-color: #008cba;
+        color: #fff;
+      }
+
+      textarea {
+        text-align: center;
+        /* height: 100px; */
+        resize: none;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .pass-gen-title {
+        margin: 20px 0;
+        text-align: center;
+        font-weight: 500;
+        color: black;
+      }
+
+      .pass-text-area {
+        text-transform: none;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <button onclick="showNavUtil()" class="btn-show">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div id="nav-placeholder"></div>
+    </div>
+
+    <div class="container" onclick="closeNavUtil()">
+      <h3 class="pass-gen-title">Password Generator</h3>
+
+      <label class="pass-length-label" for="password-length"
+        >Password Length:</label
+      >
+      <input
+        type="number"
+        45465
+        class="pass-length"
+        id="password-length"
+        name="password-length"
+        min="8"
+        max="20"
+        value="16"
+        inputmode="numeric"
+      />
+      <div class="pass-lower">
+        <input
+          class="pass-lower-check"
+          type="checkbox"
+          id="include-lowercase"
+          name="include-lowercase"
+          checked
+        />
+        <label class="pass-lower-lbl" for="include-lowercase"
+          >Include Lowercase Letters</label
+        >
+      </div>
+      <div class="pass-upper">
+        <input
+          type="checkbox"
+          class="pass-upper-check"
+          id="include-uppercase"
+          name="include-uppercase"
+          checked
+        />
+        <label class="pass-upper-lbl" for="include-uppercase"
+          >Include Uppercase Letters</label
+        >
+      </div>
+      <div class="pass-number">
+        <input
+          type="checkbox"
+          class="pass-number-check"
+          id="include-numbers"
+          name="include-numbers"
+          checked
+        />
+        <label class="pass-number-lbl" for="include-numbers"
+          >Include Numbers</label
+        >
+      </div>
+      <div class="pass-symbol">
+        <input
+          class="pass-symbol-check"
+          type="checkbox"
+          id="include-symbols"
+          name="include-symbols"
+        />
+        <label class="pass-symbol-lbl" for="include-symbols"
+          >Include Symbols</label
+        >
+      </div>
+      <div class="pass-btns">
+        <button class="pass-gen-btn" id="generate-password">
+          Generate Password
+        </button>
+        <button class="pass-copy-btn" id="copy-password">Copy Password</button>
+      </div>
+      <div>
+        <textarea id="password" class="pass-text-area" readonly></textarea>
+      </div>
+    </div>
+    <div id="copyright-div"></div>
+
+    <script type="text/javascript">
+      function generatePassword() {
+        // get/check parameters to generate password
+        const length = document.getElementById("password-length").value;
+        const includeLowercase = $("#include-lowercase").prop("checked");
+        const includeUppercase = $("#include-uppercase").prop("checked");
+        const includeNumbers = $("#include-numbers").prop("checked");
+        const includeSymbols = $("#include-symbols").prop("checked");
+
+        // picking character set to use based on parameters
+        let charset = "";
+        if (includeLowercase) charset += "abcdefghijklmnopqrstuvwxyz";
+        if (includeUppercase) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if (includeNumbers) charset += "0123456789";
+        if (includeSymbols) charset += "!@#$%^&*()_+-=[]{}|;:,.<>?";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+          // select a character from the set by index after picking index at random and add it to the password
+          password += charset.charAt(
+            Math.floor(Math.random() * charset.length)
+          );
+        }
+
+        // Set the generated password in localStorage
+        localStorage.setItem("password", password);
+        return password;
+      }
+
+      function closeNavUtil() {
+        $(".side-nav").removeClass("responsive-nav");
+      }
+
+      $(document).ready(function () {
+        $("#nav-placeholder").load("nav.html");
+        $("#copyright-div").load("statement.html");
+
+        // display result
+        $("#generate-password").click(function () {
+          var password = generatePassword();
+          $("#password").val(password);
+        });
+
+        // copy to generated password to clipboard
+        $("#copy-password").click(function () {
+          var password = $("#password").val();
+          if (password) {
+            $("#password").select();
+            document.execCommand("copy");
+            alert("Password copied to clipboard!");
+          }
+        });
+
+        // Retrieve the password from localStorage when the page loads - persistence
+        const password = localStorage.getItem("password");
+        if (password) {
+          document.getElementById("password").value = password;
+        }
+
+        // prevent the password length input field from exceeding 20
+        $(".pass-length").on("input", function () {
+          if ($(this).val() > 20) {
+            value = $(this).val();
+            $(this).val(value.substring(0, value.length - 1));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
