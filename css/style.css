@@ -125,10 +125,376 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* color of the track */
+  /* background-color: #ffffff;  */
+  /* color of the track */
+  border-radius: 15px;
 }
 
 /* Notepad */
+
+
+.container {
+  background-color: white;
+}
+
+.sticky__note-items {
+  list-style: none;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sticky__note-item {
+  background-color: rgb(243, 243, 193);
+  padding: 15px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  word-wrap: break-word;
+  max-height: 120px;
+}
+.sticky__delete-note-btn {
+  position: absolute;
+  right: 7%;
+  top: 40%;
+  background-color: transparent;
+  border: none;
+}
+.sticky__note-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.sticky__header {
+  padding: 12.5px 0.5rem 12.5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sticky__add-note {
+  background-color: transparent;
+  font-size: 1rem;
+  color: gray;
+  border: none;
+}
+
+.sticky__new-note {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sticky__note-text {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 1rem;
+  border-radius: 3px;
+  background-color: rgb(243, 243, 193);
+  padding: 10px;
+  text-transform: none;
+}
+.sticky__note-text:focus {
+  outline: none;
+}
+
+.sticky__edit-note {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 1%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .sticky__delete-note-btn {
+    opacity: 0;
+  }
+
+  .sticky__note-item:hover .sticky__delete-note-btn {
+    opacity: 1;
+  }
+}
+
+
+/* To-do List */
+
+.container {
+  height: 450px;
+  width: 330px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.auto-save {
+  position: absolute;
+  bottom: 2%;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 12.5px;
+  border-radius: 25px;
+  font-size: 0.75rem;
+}
+
+#input {
+  height: 50px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: #666;
+  color: #fff;
+  padding: 0 10px;
+  margin: 15px 0;
+}
+
+#input::placeholder {
+  color: #bbb;
+}
+.task-list {
+  overflow-y: scroll;
+  height: 100%;
+}
+.task-list li {
+  position: relative;
+  background: #eee;
+  color: #333;
+  height: 40px;
+  border-radius: 50px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.task-list .fa-check,
+.fa-trash {
+  position: absolute;
+  cursor: pointer;
+}
+
+.task-list .fa-check {
+  right: 40px;
+  color: green;
+}
+
+.task-list .fa-trash {
+  right: 15px;
+  color: #ff0033;
+}
+
+.task-list .checked {
+  background: lightgreen;
+  text-decoration: line-through;
+  transition: 0.2s;
+}
+
+/* Password Generator */
+
+
+.container {
+  background-color: white;
+}
+
+.pass-length-label,
+.pass-length {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.pass-length {
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 80px;
+  box-sizing: border-box;
+}
+
+.pass-lower-check,
+.pass-lower-lbl,
+.pass-upper-check,
+.pass-upper-lbl,
+.pass-number-check,
+.pass-number-lbl,
+.pass-symbol-check,
+.pass-symbol-lbl {
+  margin-bottom: 7.5px;
+  font-size: 16px;
+}
+
+.pass-lower-check,
+.pass-upper-check,
+.pass-number-check,
+.pass-symbol-check {
+  margin-right: 5px;
+}
+
+.pass-btns {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pass-btns button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.pass-gen-btn {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.pass-copy-btn {
+  background-color: #008cba;
+  color: #fff;
+}
+
+.pass-textarea {
+  text-align: center;
+  /* height: 100px; */
+  resize: none;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pass-gen-title {
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 500;
+  color: black;
+}
+
+.pass-text-area {
+  text-transform: none;
+}
+
+
+/* Counter */
+
+.countdown-input {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.countdown-title {
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 500;
+  color: black;
+}
+
+.countdown-input-group {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 30%;
+}
+.countdown-timer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.countdown-input label {
+  margin-right: 10px;
+}
+
+.countdown-input-box {
+  width: 100%;
+  padding: 0.25rem 0;
+  font-size: 2rem;
+  text-align: center;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.countdown-input-box:focus {
+  outline: none;
+}
+.countdown-btn {
+  width: 80%;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border: none;
+  color: white;
+  background-color: black;
+  border-radius: 1.5rem;
+}
+
+.countdown-display {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 3rem;
+  width: 100%;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-label {
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+.pulse {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
 
 @media screen and (min-width: 768px) {
   .side-nav {
@@ -186,3 +552,5 @@ body {
     display: flex;
   }
 }
+
+

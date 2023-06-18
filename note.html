@@ -15,98 +15,7 @@
     <title>Utilize - Notepad</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <style>
-      .container {
-        background-color: white;
-      }
-
-      .sticky__note-items {
-        list-style: none;
-        height: 100%;
-        overflow-y: auto;
-      }
-
-      .sticky__note-item {
-        background-color: rgb(243, 243, 193);
-        padding: 15px;
-        border-radius: 2px;
-        margin-bottom: 10px;
-        font-size: 0.9rem;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        position: relative;
-        word-wrap: break-word;
-        max-height: 120px;
-      }
-      .sticky__delete-note-btn {
-        position: absolute;
-        right: 4%;
-        top: 40%;
-        background-color: transparent;
-        border: none;
-      }
-      .sticky__note-list {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        overflow-y: hidden;
-      }
-
-      .sticky__header {
-        padding: 12.5px 0.5rem 12.5px 0;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .sticky__add-note {
-        background-color: transparent;
-        font-size: 1rem;
-        color: gray;
-        border: none;
-      }
-
-      .sticky__new-note {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-
-      .sticky__note-text {
-        width: 100%;
-        height: 100%;
-        border: none;
-        font-size: 1rem;
-        border-radius: 3px;
-        background-color: rgb(243, 243, 193);
-        padding: 2px;
-        text-transform: none;
-      }
-      .sticky__note-text:focus {
-        outline: none;
-      }
-
-      .sticky__edit-note {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-
-      @media screen and (min-width: 768px) {
-        .container {
-          padding: 1%;
-        }
-      }
-
-      @media screen and (min-width: 1024px) {
-        .sticky__delete-note-btn {
-          opacity: 0;
-        }
-
-        .sticky__note-item:hover .sticky__delete-note-btn {
-          opacity: 1;
-        }
-      }
-    </style>
+    <style> </style>
   </head>
   <body>
     <div class="header">
@@ -117,7 +26,7 @@
     </div>
 
     <div class="container">
-      <div id="notepad">
+      <div id="notepad" style="height: 100%;">
         <div id="note-list" class="sticky__note-list">
           <div class="sticky__header">
             <h3>Sticky Notes</h3>
@@ -128,133 +37,13 @@
           <ul class="sticky__note-items"></ul>
         </div>
       </div>
-      <script>
-        // get notes from local storage
-        let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
-        // display notes on page load
-        displayNotes();
-
-        // add event listener for "Add Note" button
-        $("#add-note-btn").on("click", function () {
-          // create note-writing section and append it to the notepad div
-          let noteWritingSection = `
-            <div id="note-writing" class="sticky__new-note">
-              <div class="sticky__header">
-                <h3>New Note</h3>
-                <div>
-                  <button id="back-btn" class="sticky__add-note"><i class="fas fa-save"></i></button>
-                  <button id="cancel-note-btn" class="sticky__add-note"><i class="fas fa-times"></i></button>
-                </div>
-              </div>
-              <textarea id="note-text" class="sticky__note-text"></textarea>
-            </div>
-          `;
-          $("#notepad").append(noteWritingSection);
-
-          // hide note-list and show note-writing section
-          $("#note-list").hide();
-          // $("#note-writing").show();
-        });
-
-        // add event listener for "Back" button
-        $("#notepad").on("click", "#back-btn", function () {
-          let noteText = $("#note-text").val();
-          if (noteText !== "") {
-            notes.push(noteText);
-            localStorage.setItem("notes", JSON.stringify(notes));
-            $("#note-text").val("");
-            displayNotes();
-          }
-          $("#note-list").show();
-          $("#note-writing").remove();
-        });
-
-        // add event listener for "Cancel" button
-        $("#notepad").on("click", "#cancel-note-btn", function () {
-          $("#note-text").val("");
-          $("#note-list").show();
-          $("#note-writing").hide();
-          // remove note-writing section from notepad div
-          $("#note-writing").remove();
-        });
-
-        // add event listener for "Save Note" button
-        $("#notepad").on("click", "#save-note-btn", function () {
-          let noteText = $("#note-text").val();
-          if (noteText !== "") {
-            let noteIndex = $(this).data("note-index");
-            if (noteIndex !== undefined) {
-              // if noteIndex is defined, this is an edited note
-              notes[noteIndex] = noteText;
-            } else {
-              // otherwise, this is a new note
-              notes.push(noteText);
-            }
-            localStorage.setItem("notes", JSON.stringify(notes));
-            $("#note-text").val("");
-            displayNotes();
-            $("#note-list").show();
-            $("#note-writing").hide();
-            // remove note-writing section from notepad div
-            $("#note-writing").remove();
-          }
-        });
-
-        // add event listener for note list item
-        $("#note-list ul").on("click", "li", function () {
-          let noteIndex = $(this).index();
-          $("#note-text").val(notes[noteIndex]);
-          // create note-writing section and append it to the notepad div
-          let noteWritingSection = `
-            <div id="note-writing" class="sticky__edit-note">
-              <div class="sticky__header">
-                <h3>Edit Note</h3>
-                <div class="sticky__header-btns">
-                  <button id="save-note-btn" class="sticky__add-note" data-note-index="${noteIndex}"><i class="fas fa-save"></i></button>
-                  <button id="cancel-note-btn" class="sticky__add-note"><i class="fas fa-times"></i></button>
-                </div>
-              </div>
-              <textarea class="sticky__note-text" id="note-text">${notes[noteIndex]}</textarea>
-        
-            </div>
-          `;
-          $("#notepad").append(noteWritingSection);
-          // hide note-list and show note-writing section
-          $("#note-list").hide();
-          $("#note-writing").show();
-        });
-
-        function displayNotes() {
-          let noteList = $("#note-list ul");
-          noteList.empty();
-          for (let i = 0; i < notes.length; i++) {
-            let noteText = notes[i];
-            let noteItem = $('<li class="sticky__note-item">').text(noteText);
-            let deleteButton = $(
-              '<button class="sticky__delete-note-btn"><i class="fas fa-trash"></i></button>'
-            );
-            deleteButton.click(function () {
-              let noteIndex = $(this).parent().index();
-              // to remove the note
-              notes.splice(noteIndex, 1);
-              localStorage.setItem("notes", JSON.stringify(notes));
-              displayNotes();
-            });
-            noteItem.append(deleteButton);
-            noteList.append(noteItem);
-          }
-        }
-      </script>
+      
     </div>
 
     <div id="copyright-div"></div>
 
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $("#nav-placeholder").load("nav.html");
-        $("#copyright-div").load("statement.html");
-      });
+    <script src="./js/nav.js">
     </script>
+    <script src="./js/note.js">  </script>
   </body>
 </html>

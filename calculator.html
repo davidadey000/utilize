@@ -90,7 +90,7 @@
     </div>
 
     <div class="calc container">
-      <input class="calc-display" type="text" readonly/>
+      <input class="calc-display" type="text" readonly />
       <div class="btn-container">
         <input type="button" class="sign-btn" value="C" onclick="c()" />
         <input
@@ -131,33 +131,7 @@
     </div>
 
     <div id="copyright-div"></div>
-
-    <script type="text/javascript">
-      // to show number on the calc display
-      function insert(num) {
-        $(".calc-display").val($(".calc-display").val() + num);
-      }
-
-      // to evaluate the expression
-      function eql() {
-        $(".calc-display").val(eval($(".calc-display").val()));
-      }
-
-      // to clear the calc display
-      function c() {
-        $(".calc-display").val("");
-      }
-
-      // to delete the last number from the calc display
-      function del() {
-        value = $(".calc-display").val();
-        $(".calc-display").val(value.substring(0, value.length - 1));
-      }
-
-      $(document).ready(function () {
-        $("#nav-placeholder").load("nav.html");
-        $("#copyright-div").load("statement.html");
-      });
-    </script>
+    <script src="./js/nav.js"></script>
+    <script type="text/javascript" src="./js/calculator.js"></script>
   </body>
 </html>
